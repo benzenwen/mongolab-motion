@@ -1,0 +1,17 @@
+{
+  "name": "mongolab-motion",
+  "version": "0.1.0",
+  "description": "Arduino motion sensor log to MongoLab REST API",
+  "main": "app.js",
+  "engines" : { 
+      "node" : "0.8",
+      "npm" : ">=1.1"
+  },
+  "repository": "https://github.com/benwen/mongolab-motion.git",
+  "author": "Ben Wen",
+  "license": "MIT",
+  "dependencies": {
+    "johnny-five": "0.5.x"
+  }
+}
+
