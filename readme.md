@@ -2,10 +2,14 @@
 
 ![Picture of the rig](mongolab-motion.jpg "The setup")
 
-A quick Node.js example of sending Arduino sensor data to a MongoDB
-database, hosted at MongoLab.  It uses the MongoLab REST API.  It
-sends results based on rules to email.  The hardware in the photo is
-an [Arduino UNO
+An Arduino motion sensor example that logs to MongoLab's REST API and
+to an email address.
+
+This simple Node.js example sends Arduino sensor data to a MongoDB
+database hosted at MongoLab.  It uses the MongoLab REST API.  It also
+sends results based on rules to email.  
+
+The hardware in the photo is an [Arduino UNO
 R3](http://arduino.cc/en/uploads/Main/ArduinoUno_R3_Front.jpg) and a
 [Parallax PIR motion
 sensor](http://www.parallax.com/tabid/768/productid/83/default.aspx)

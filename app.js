@@ -1,5 +1,6 @@
 //
-// mongolab-motion: Arduino motion detector logging to MongoLab
+// mongolab-motion: An Arduino motion sensor example that logs to
+// MongoLab's REST API and to an email address. 
 //
 
 //

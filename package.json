@@ -1,7 +1,7 @@
 {
   "name" : "mongolab-motion",
   "version" : "0.1.0",
-  "description" : "An Arduino motion sensor example that logs to MongoLab's REST APIand to an email address.",
+  "description" : "An Arduino motion sensor example that logs to MongoLab's REST API and to an email address.",
   "main" : "app.js",
   "engines" : { 
       "node" : "0.8",
