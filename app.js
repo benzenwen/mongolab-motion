@@ -2,27 +2,32 @@
 // mongolab-motion: Arduino motion detector logging to MongoLab
 //
 
+//
 // by Ben Wen 
 // with thanks to the Arduino community, esp. Rick Waldon for Johnny Five,
 // SendGrid for the Uno board, esp. @swiftalphaone for the Waza tutorial.
-
-//
-// Copyright 2012 Ben Wen.  
 //
 
 //
-// MIT Licensed
+// Copyright 2013 Benson Wen.  
 //
+
+//
+// MIT licensed
+//
+
+// March 2013
 
 
 var five = require('johnny-five'),
 board = new five.Board(),
 https = require('https'),
+mailer = require('mailer'),
 config = require('./config').config,
 detected = 0, 
 ceased = 0;
 
-
+// Set up event handlers to process motion events.
 board.on('ready', function() {
   var button = new five.Button(config.sensorpin)
 
@@ -44,16 +49,34 @@ board.on('ready', function() {
 function noteEvent(msg) {
   var time = new Date ()
   console.log(time.toString() + ': ' + msg)
-  postMsg({
+  logMsg({
     '_id' : time.getTime(),
+    'sensorid' : config.id,
     'time' : time.toString(),
     'event' : msg
   })
+
+  // FIXME using message string matching is distasteful
+  if ((/.*detected.*/.test(msg) && config.detectTest(time, detected)) ||
+      (/.*ceased.*/.test(msg) && config.ceasedTest(time, ceased)))
+    mailMsg(msg)
 }
 
-var idmatch = /.*_id.*/
+var email = config.mailer
+email.subject = 'node_mailer test email'
 
-function postMsg(msg) {
+// TODO: make mailMsg and logMsg use the same msg semantics.
+function mailMsg(msg) {
+  email.subject = config.id +": " + msg;
+  email.body = 'Hello! from mongolab_motion sensor:' + config.id + '.\nMessage: ' + msg
+  mailer.send(email, function (err, result) {
+    if (err) console.log (err)
+    console.log ('mail sent')
+  })
+}  
+
+
+function logMsg(msg) {
   var options = {
     host: 'api.mongolab.com',
     port: '443',
@@ -68,7 +91,7 @@ function postMsg(msg) {
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     res.on('data', function(chunk) {
-      if (! idmatch.test(chunk)) 
+      if (! /.*_id.*/.test(chunk)) 
 	console.log('Unexpected server response: ' + chunk)
     })
   })
