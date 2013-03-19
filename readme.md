@@ -33,6 +33,8 @@ between 7pm and 8am.  The other sends email every 10th event.
 Open the config-sample.js file and fill in your MongoLab REST API
 credentials and mail (SMTP) config and credentials.  
 
+Rename the file to config.js.
+
 You can view events in either the MongoLab API or through the mongo
 shell, if you have that installed.  The screen on the left is the
 MongoLab list view.
