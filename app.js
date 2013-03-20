@@ -64,7 +64,7 @@ function noteEvent(msg) {
 }
 
 var email = config.mailer
-email.subject = 'node_mailer test email'
+email.subject = 'mongolab_motion event!'
 
 // TODO: make mailMsg and logMsg use the same msg semantics.
 function mailMsg(msg) {
